@@ -15,6 +15,7 @@ use rpc::{NearRpc, Network, Transaction};
 use biometric::{BiometricAuth, BiometricResult};
 use std::sync::Arc;
 use parking_lot::Mutex;
+use rand::RngCore;
 
 actions!(text_input, [Backspace, Delete, Left, Right, Home, End, Paste, Copy, Cut, SelectAll, Enter]);
 
@@ -67,9 +68,9 @@ pub struct KeyPair {
 
 impl KeyPair {
     pub fn generate() -> Self {
-        // Use rand from GPUI's dependencies
+        // Use rand to generate random bytes
         let mut bytes = [0u8; 32];
-        rand::fill(&mut bytes);
+        rand::thread_rng().fill_bytes(&mut bytes);
         
         let private_key = format!("ed25519:{}", bs58::encode(&bytes).into_string());
         
