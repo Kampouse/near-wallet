@@ -1,0 +1,23 @@
+[package]
+name = "near-wallet"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gpui = { git = "https://github.com/zed-industries/zed", rev = "main" }
+parking_lot = "0.12"
+smol = "2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+base64 = "0.22"
+anyhow = "1.0"
+hex = "0.4"
+ed25519-dalek = { version = "2.1", features = ["rand_core"] }
+bs58 = "0.5"
+
+[target.'cfg(target_os = "macos")'.dependencies.objc2-local-authentication]
+version = "0.3"
+
+[[bin]]
+name = "near-wallet"
+path = "main.rs"
